@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body { 
+    font-family: 'Inter', sans-serif; 
+    scroll-behavior: smooth; 
+}
+
+/* Efecto cristal (Glassmorphism) */
+.glass-effect {
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Menú Móvil Animado */
+.mobile-menu {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: top;
+    transform: scaleY(0);
+    opacity: 0;
+}
+.mobile-menu.open {
+    transform: scaleY(1);
+    opacity: 1;
+}
+
+/* Textos Neón */
+.text-gradient-cyan { 
+    background: linear-gradient(to right, #22d3ee, #3b82f6); 
+    -webkit-background-clip: text; 
+    background-clip: text;
+    color: transparent; 
+}
+.text-gradient-purple { 
+    background: linear-gradient(to right, #c084fc, #ec4899); 
+    -webkit-background-clip: text; 
+    background-clip: text;
+    color: transparent; 
+}
