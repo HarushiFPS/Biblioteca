@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS - Admin Panel</title>
+    <title>NEXUS - Panel de administración</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="{{ asset('css/estilos.css') }}" rel="stylesheet">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body class="bg-slate-950 text-slate-200 antialiased h-screen flex flex-col overflow-hidden selection:bg-pink-500/30 selection:text-pink-100">
 
@@ -63,19 +64,19 @@
                     <i class="ph ph-squares-four text-xl mr-3 transition-transform group-hover:scale-110"></i> Dashboard
                 </a>
                 
-                <a href="#" class="flex items-center px-4 py-3 rounded-xl transition-all duration-300 group text-slate-400 hover:bg-slate-800 hover:text-cyan-400 hover:translate-x-1">
-                    <i class="ph ph-books text-xl mr-3 transition-transform group-hover:scale-110"></i> Catálogo de Libros
+                <a href="{{ route('libros.index') }}" class="flex items-center px-4 py-3 rounded-xl transition-all duration-300 group {{ request()->routeIs('libros.*') ? 'bg-slate-800 text-purple-400 border-l-4 border-purple-400 shadow-[inset_0_0_20px_rgba(192,132,252,0.1)] font-semibold' : 'text-slate-400 hover:bg-slate-800 hover:text-purple-400 hover:translate-x-1' }}">
+                    <i class="ph ph-books text-xl mr-3 transition-transform group-hover:scale-110"></i> Catálogo de libros
                 </a>
 
                 <a href="{{ route('categorias.index') }}" class="flex items-center px-4 py-3 rounded-xl transition-all duration-300 group {{ request()->routeIs('categorias.*') ? 'bg-slate-800 text-pink-400 border-l-4 border-pink-400 shadow-[inset_0_0_20px_rgba(244,114,182,0.1)] font-semibold' : 'text-slate-400 hover:bg-slate-800 hover:text-pink-400 hover:translate-x-1' }}">
                     <i class="ph ph-tag text-xl mr-3 transition-transform group-hover:scale-110"></i> Categorías
                 </a>
 
-                <a href="#" class="flex items-center px-4 py-3 rounded-xl transition-all duration-300 group text-slate-400 hover:bg-slate-800 hover:text-purple-400 hover:translate-x-1">
+                <a href="{{ route('prestamos.index') }}" class="flex items-center px-4 py-3 rounded-xl transition-all duration-300 group {{ request()->routeIs('prestamos.*') ? 'bg-slate-800 text-amber-400 border-l-4 border-amber-400 shadow-[inset_0_0_20px_rgba(245,158,11,0.1)] font-semibold' : 'text-slate-400 hover:bg-slate-800 hover:text-amber-400 hover:translate-x-1' }}">
                     <i class="ph ph-arrows-left-right text-xl mr-3 transition-transform group-hover:scale-110"></i> Préstamos
                 </a>
 
-                <a href="#" class="flex items-center px-4 py-3 rounded-xl transition-all duration-300 group text-slate-400 hover:bg-slate-800 hover:text-emerald-400 hover:translate-x-1">
+                <a href="{{ route('users.index') }}" class="flex items-center px-4 py-3 rounded-xl transition-all duration-300 group {{ request()->routeIs('users.*') ? 'bg-slate-800 text-emerald-400 border-l-4 border-emerald-400 shadow-[inset_0_0_20px_rgba(16,185,129,0.1)] font-semibold' : 'text-slate-400 hover:bg-slate-800 hover:text-emerald-400 hover:translate-x-1' }}">
                     <i class="ph ph-users text-xl mr-3 transition-transform group-hover:scale-110"></i> Usuarios
                 </a>
 

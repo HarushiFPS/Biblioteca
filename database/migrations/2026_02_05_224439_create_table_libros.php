@@ -6,12 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        
         Schema::create('libros', function (Blueprint $table) {
             $table->id();
             $table->string('nombre', 255);
@@ -19,14 +15,15 @@ return new class extends Migration
             $table->string('autor', 255);
             $table->string('editorial', 255);
             $table->smallInteger('estatus')->default(0);
+            
+            // NUEVO CAMPO: Permitimos que sea 'nullable' por si un libro no tiene imagen
+            $table->string('portada')->nullable(); 
+            
             $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('libros');

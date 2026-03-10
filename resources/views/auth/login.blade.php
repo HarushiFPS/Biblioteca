@@ -1,6 +1,6 @@
 @extends('layout.auth')
 
-@section('titulo', 'Iniciar Sesión')
+@section('titulo', 'Iniciar sesión')
 
 @section('content')
     <nav class="fixed top-0 left-0 w-full z-50 px-6 py-4 flex justify-between items-center">
