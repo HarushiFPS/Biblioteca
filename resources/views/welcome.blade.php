@@ -1,65 +1,117 @@
 @extends('layout.admin')
 
 @section('content')
-<div class="pb-20"> 
-    <header class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <div>
-            <h1 class="text-4xl font-extrabold text-white mb-2">Panel de control</h1>
-            <p class="text-slate-400">Resumen general del sistema bibliotecario.</p>
-        </div>
-        <div class="text-sm text-slate-500 bg-slate-900/50 px-4 py-2 rounded-full border border-slate-800">
-            <i class="ph ph-calendar-blank mr-1"></i> Hoy, {{ date('d M Y') }}
-        </div>
-    </header>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="group bg-slate-800/50 backdrop-blur-sm p-6 rounded-2xl border border-slate-700 shadow-xl shadow-cyan-500/5 transition-all duration-500 hover:-translate-y-1 hover:shadow-cyan-500/20 hover:border-cyan-500/50 relative overflow-hidden">
-            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/30 transition-all"></div>
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-cyan-400 text-xs font-bold uppercase tracking-wider">Libros totales</h3>
-                <div class="p-2 bg-cyan-500/10 rounded-lg text-cyan-400"><i class="ph ph-books text-xl"></i></div>
-            </div>
-            <p class="text-4xl font-bold text-white">1,240</p>
-            <p class="text-slate-500 text-sm mt-2 flex items-center gap-1"><i class="ph ph-trend-up text-emerald-400"></i> <span class="text-emerald-400">12%</span> vs mes anterior</p>
-        </div>
-
-        <div class="group bg-slate-800/50 backdrop-blur-sm p-6 rounded-2xl border border-slate-700 shadow-xl shadow-purple-500/5 transition-all duration-500 hover:-translate-y-1 hover:shadow-purple-500/20 hover:border-purple-500/50 relative overflow-hidden">
-            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/30 transition-all"></div>
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-purple-400 text-xs font-bold uppercase tracking-wider">Préstamos activos</h3>
-                <div class="p-2 bg-purple-500/10 rounded-lg text-purple-400"><i class="ph ph-arrows-left-right text-xl"></i></div>
-            </div>
-            <p class="text-4xl font-bold text-white">45</p>
-            <p class="text-slate-500 text-sm mt-2 flex items-center gap-1"><i class="ph ph-warning-circle text-amber-400"></i> <span class="text-amber-400">5</span> vencen hoy</p>
-        </div>
-
-        <div class="group bg-slate-800/50 backdrop-blur-sm p-6 rounded-2xl border border-slate-700 shadow-xl shadow-emerald-500/5 transition-all duration-500 hover:-translate-y-1 hover:shadow-emerald-500/20 hover:border-emerald-500/50 relative overflow-hidden">
-            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-emerald-500/20 rounded-full blur-3xl group-hover:bg-emerald-500/30 transition-all"></div>
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-emerald-400 text-xs font-bold uppercase tracking-wider">Usuarios registrados</h3>
-                <div class="p-2 bg-emerald-500/10 rounded-lg text-emerald-400"><i class="ph ph-users-three text-xl"></i></div>
-            </div>
-            <p class="text-4xl font-bold text-white">320</p>
-            <p class="text-slate-500 text-sm mt-2 flex items-center gap-1"><i class="ph ph-plus-circle text-emerald-400"></i> <span class="text-emerald-400">24</span> esta semana</p>
-        </div>
+    <div class="mb-8">
+        <h1 class="text-4xl font-extrabold text-white mb-2">Centro de mando</h1>
+        <p class="text-slate-400">Estadísticas en tiempo real de la biblioteca Nexus.</p>
     </div>
 
-    <div class="bg-slate-800/40 backdrop-blur-md rounded-2xl shadow-xl border border-slate-700/50 p-8 relative overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         
-        <div class="flex items-center justify-between mb-6 relative z-10">
+        <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 shadow-lg relative overflow-hidden group hover:border-purple-500/50 transition-all">
+            <div class="absolute -right-6 -top-6 text-purple-500/10 group-hover:text-purple-500/20 transition-colors transform group-hover:scale-110">
+                <i class="ph ph-books text-9xl"></i>
+            </div>
+            <p class="text-slate-400 text-sm font-bold uppercase tracking-wider mb-2">Total de libros</p>
+            <div class="flex items-end gap-3">
+                <h3 class="text-5xl font-extrabold text-white">{{ $total_libros }}</h3>
+                <span class="text-purple-400 text-sm font-bold mb-1"><i class="ph ph-trend-up"></i> Registros</span>
+            </div>
+        </div>
+
+        <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 shadow-lg relative overflow-hidden group hover:border-amber-500/50 transition-all">
+            <div class="absolute -right-6 -top-6 text-amber-500/10 group-hover:text-amber-500/20 transition-colors transform group-hover:scale-110">
+                <i class="ph ph-book-open text-9xl"></i>
+            </div>
+            <p class="text-slate-400 text-sm font-bold uppercase tracking-wider mb-2">Libros Prestados</p>
+            <div class="flex items-end gap-3">
+                <h3 class="text-5xl font-extrabold text-white">{{ $libros_prestados }}</h3>
+                <span class="text-amber-400 text-sm font-bold mb-1"><i class="ph ph-users"></i> En uso</span>
+            </div>
+        </div>
+
+        <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 shadow-lg relative overflow-hidden group hover:border-emerald-500/50 transition-all">
+            <div class="absolute -right-6 -top-6 text-emerald-500/10 group-hover:text-emerald-500/20 transition-colors transform group-hover:scale-110">
+                <i class="ph ph-users-three text-9xl"></i>
+            </div>
+            <p class="text-slate-400 text-sm font-bold uppercase tracking-wider mb-2">Total de Usuarios</p>
+            <div class="flex items-end gap-3">
+                <h3 class="text-5xl font-extrabold text-white">{{ $total_usuarios }}</h3>
+                <span class="text-emerald-400 text-sm font-bold mb-1"><i class="ph ph-check-circle"></i> Activos</span>
+            </div>
+        </div>
+
+        <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 shadow-lg relative overflow-hidden group hover:border-red-500/50 transition-all">
+            <div class="absolute -right-6 -top-6 text-red-500/10 group-hover:text-red-500/20 transition-colors transform group-hover:scale-110">
+                <i class="ph ph-clock-countdown text-9xl"></i>
+            </div>
+            <p class="text-slate-400 text-sm font-bold uppercase tracking-wider mb-2">Pendientes</p>
+            <div class="flex items-end gap-3">
+                <h3 class="text-5xl font-extrabold text-white">{{ $devoluciones_pendientes }}</h3>
+                <span class="text-red-400 text-sm font-bold mb-1"><i class="ph ph-warning-circle"></i> Por devolver</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="mt-8 bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 shadow-xl relative overflow-hidden">
+        
+        <div class="flex justify-between items-center mb-6">
             <h2 class="text-xl font-bold text-white flex items-center gap-2">
-                <i class="ph ph-chart-bar text-cyan-500"></i> Actividad reciente
+                <i class="ph ph-activity text-amber-500 text-2xl"></i> Actividad reciente
             </h2>
-            <button class="px-4 py-2 bg-slate-700/50 text-slate-300 rounded-lg hover:bg-cyan-600 hover:text-white transition-all text-sm font-medium border border-slate-600 hover:border-cyan-500">
-                Ver reporte completo
-            </button>
+            <a href="{{ route('prestamos.index') }}" class="text-sm font-bold text-amber-500 hover:text-amber-400 transition-colors flex items-center gap-1">
+                Ver todos <i class="ph ph-arrow-right"></i>
+            </a>
         </div>
-        
-        <div class="border-2 border-dashed border-slate-700/50 rounded-xl h-64 flex flex-col items-center justify-center text-slate-500 relative z-10 bg-slate-800/30 hover:border-cyan-500/30 transition-all group cursor-pointer">
-            <i class="ph ph-table text-5xl mb-3 opacity-30 group-hover:opacity-60 group-hover:text-cyan-400 transition-all group-hover:scale-110"></i>
-            <p>El área de contenido dinámico se cargará aquí.</p>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="text-slate-400 text-xs uppercase tracking-wider border-b border-slate-700/50">
+                        <th class="pb-3 font-bold pl-2">Lector</th>
+                        <th class="pb-3 font-bold">Libro</th>
+                        <th class="pb-3 font-bold">Fecha</th>
+                        <th class="pb-3 font-bold text-right pr-2">Estatus</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/50 text-sm">
+                    @forelse($ultimos_prestamos as $prestamo)
+                    <tr class="hover:bg-slate-800/30 transition-colors group">
+                        
+                        <td class="py-4 pl-2 text-white font-medium flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs border border-emerald-500/30">
+                                {{ strtoupper(substr($prestamo->usuario->name ?? 'U', 0, 1)) }}
+                            </div>
+                            {{ $prestamo->usuario->name ?? 'Usuario eliminado' }}
+                        </td>
+                        
+                        <td class="py-4 text-slate-300 font-medium">
+                            {{ $prestamo->libro->nombre ?? 'Libro eliminado' }}
+                        </td>
+                        
+                        <td class="py-4 text-slate-500">
+                            {{ \Carbon\Carbon::parse($prestamo->fecha_prestamo)->diffForHumans() }}
+                        </td>
+                        
+                        <td class="py-4 pr-2 text-right">
+                            @if($prestamo->estatus == 0)
+                                <span class="bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full text-xs font-bold border border-amber-500/20">Activo</span>
+                            @else
+                                <span class="bg-slate-800 text-slate-400 px-3 py-1 rounded-full text-xs font-bold border border-slate-700">Devuelto</span>
+                            @endif
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="4" class="py-10 text-center text-slate-500">
+                            <i class="ph ph-wind text-3xl mb-2 block opacity-50"></i>
+                            Aún no hay actividad reciente en el sistema.
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
-</div>
 @endsection

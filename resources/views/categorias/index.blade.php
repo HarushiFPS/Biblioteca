@@ -28,14 +28,14 @@
                     <td class="p-5 font-bold text-white">{{ $categoria->nombre }}</td>
                     <td class="p-5 text-sm text-slate-500">{{ $categoria->created_at->format('d/m/Y') }}</td>
                     <td class="p-5 text-right flex justify-end gap-2">
-                        <a href="{{ route('categorias.edit', $categoria->id) }}" class="p-2 rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500 hover:text-white transition-all">
-                            <i class="ph ph-pencil-simple"></i>
+                        <a href="{{ route('categorias.edit', $categoria->id) }}" class="px-3 py-2 rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 text-xs font-bold">
+                            <i class="ph ph-pencil-simple text-base"></i> Editar
                         </a>
                         <form action="{{ route('categorias.destroy', $categoria->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar la categoría: {{ $categoria->nombre }}?');" class="inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white transition-all group/del">
-                                <i class="ph ph-trash group-hover/del:scale-110 transition-transform"></i>
+                            <button type="submit" class="px-3 py-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white transition-all group/del flex items-center gap-2 text-xs font-bold">
+                                <i class="ph ph-trash text-base group-hover/del:scale-110 transition-transform"></i> Eliminar
                             </button>
                         </form>
                     </td>

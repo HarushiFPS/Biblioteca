@@ -42,14 +42,16 @@ Route::middleware(['auth'])->group(function () {
 // ==========================================
 Route::middleware(['auth', 'userType'])->group(function () {
     
-    Route::get('/admin', function () {
-        return view('welcome');
-    })->name('admin.dashboard');
+    // Dashboard optimizado
+    Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.dashboard');
 
     // CRUDs de administración
     Route::resource('categorias', CategoriaController::class);
     Route::resource('libros', LibroController::class);
     Route::resource('users', UserController::class);
+    Route::post('prestamos/buscar-usuario', [App\Http\Controllers\PrestamoController::class, 'buscar_usuario'])->name('prestamos.buscar_usuario');
+    Route::put('prestamos/{id}/entregar', [App\Http\Controllers\PrestamoController::class, 'entregar'])->name('prestamos.entregar');
+    Route::post('prestamos/seleccionar-libro', [App\Http\Controllers\PrestamoController::class, 'seleccionar_libro'])->name('prestamos.seleccionar_libro');
     Route::resource('prestamos', PrestamoController::class);
 
 });
