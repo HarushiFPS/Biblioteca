@@ -55,14 +55,3 @@ Route::middleware(['auth', 'userType'])->group(function () {
     Route::resource('prestamos', PrestamoController::class);
 
 });
-Route::get('/convertirme-en-admin', function () {
-    $user = \App\Models\User::where('email', 'yacalu10@gmail.com')->first();
-    
-    if ($user) {
-        $user->tipo_usuario = 'admin'; // Cambia 'rol' por tu columna, y 'admin' por tu valor
-        $user->save();
-        return '¡Hack completado! Ya eres administrador. Por favor, elimina esta ruta de tu código.';
-    }
-    
-    return 'Error: No se encontró el usuario con ese correo.';
-});
