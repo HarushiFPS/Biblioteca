@@ -22,6 +22,11 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 
+// Rutas de recuperación de contraseña
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->name('password.request');
+
 // ==========================================
 // RUTAS DE USUARIO NORMAL (Solo requiere estar logueado)
 // ==========================================
@@ -53,5 +58,10 @@ Route::middleware(['auth', 'userType'])->group(function () {
     Route::put('prestamos/{id}/entregar', [App\Http\Controllers\PrestamoController::class, 'entregar'])->name('prestamos.entregar');
     Route::post('prestamos/seleccionar-libro', [App\Http\Controllers\PrestamoController::class, 'seleccionar_libro'])->name('prestamos.seleccionar_libro');
     Route::resource('prestamos', PrestamoController::class);
+
+    // Módulo de Perfil y Seguridad
+    Route::get('/perfil', [App\Http\Controllers\UserController::class, 'perfil'])->name('perfil.index');
+    Route::put('/perfil/actualizar', [App\Http\Controllers\UserController::class, 'updatePerfil'])->name('perfil.update');
+    Route::put('/perfil/password', [App\Http\Controllers\UserController::class, 'updatePassword'])->name('perfil.password');
 
 });

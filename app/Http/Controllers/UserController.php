@@ -77,4 +77,53 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('users.index');
     }
+
+    /**
+     * Muestra la vista del perfil del usuario logueado.
+     */
+    public function perfil()
+    {
+        $user = Auth::user();
+        return view('users.perfil', compact('user'));
+    }
+
+    /**
+     * Actualiza el nombre del usuario logueado.
+     */
+    public function updatePerfil(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $user = Auth::user();
+        $user->name = $request->name;
+        $user->save();
+
+        return back()->with('success', 'Perfil actualizado correctamente.');
+    }
+
+    /**
+     * Actualiza la contraseña validando que la actual sea correcta.
+     */
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|confirmed', 
+        ]);
+
+        $user = Auth::user();
+
+        // Validamos usando Hash::check
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password' => 'La contraseña actual es incorrecta.']);
+        }
+
+        // Si pasó la prueba, encriptamos la nueva y la guardamos
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return back()->with('success', 'Tu contraseña ha sido actualizada y blindada.');
+    }
 }

@@ -50,16 +50,18 @@
             <div class="space-y-1">
                 <div class="flex justify-between items-center ml-1">
                     <label for="password" class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Contraseña</label>
-                    <a href="#" class="text-xs text-cyan-500 hover:text-cyan-400 hover:underline transition-colors">¿Olvidaste tu contraseña?</a>
+                    <a href="{{ route('password.request') }}" class="text-xs text-cyan-500 hover:text-cyan-400 hover:underline transition-colors">¿Olvidaste tu contraseña?</a>
                 </div>
                 <div class="relative group/input">
-                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
                         <i class="ph ph-lock-key text-slate-500 group-focus-within/input:text-cyan-400 transition-colors"></i>
                     </div>
+                    
                     <input type="password" id="password" name="password" required placeholder="••••••••"
-                        class="w-full bg-slate-950/50 text-slate-200 border border-slate-700 rounded-xl py-3 pl-11 pr-12 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-slate-600">
-                    <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-500 hover:text-slate-300 cursor-pointer focus:outline-none">
-                        <i class="ph ph-eye-slash text-lg" id="eyeIcon"></i>
+                        class="w-full bg-slate-950/50 text-slate-200 border border-slate-700 rounded-xl py-3 pl-11 pr-12 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-slate-600 relative z-0">
+                    
+                    <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-cyan-400 group-focus-within/input:text-cyan-400 cursor-pointer focus:outline-none z-10 transition-colors">
+                        <i class="ph ph-eye-slash text-xl" id="eyeIcon"></i>
                     </button>
                 </div>
             </div>
@@ -75,4 +77,20 @@
             <a href="/register" class="text-slate-300 font-medium hover:text-cyan-400 transition-colors hover:underline hover:decoration-cyan-500 hover:decoration-2 hover:underline-offset-4">Regístrate aquí</a>
         </div>
     </div>
+
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+        const eyeIcon = document.querySelector('#eyeIcon');
+
+        togglePassword.addEventListener('click', function (e) {
+            // Cambiamos el tipo de input
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            
+            // Cambiamos el ícono
+            this.querySelector('i').classList.toggle('ph-eye');
+            this.querySelector('i').classList.toggle('ph-eye-slash');
+        });
+    </script>
 @endsection

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UsuarioRegistrado;
 
 class AuthController extends Controller
 {
@@ -22,24 +24,23 @@ class AuthController extends Controller
     // Procesa los datos y guarda al usuario en la BD
     public function register(Request $request)
     {
-        // 1. Validar los datos recibidos del formulario
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed', // 'confirmed' verifica que coincida con password_confirmation
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
-        // 2. Crear el usuario encriptando la contraseña por seguridad
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        // 3. Iniciar sesión automáticamente tras el registro
+        // MÓDULOS 7 Y 8: Enviar correo asíncrono (a la cola)
+        Mail::to($user->email)->queue(new UsuarioRegistrado($user));
+
         Auth::login($user);
 
-        // 4. Redirigir al panel de administración
         return redirect('/admin')->with('success', '¡Cuenta creada con éxito!');
     }
 
